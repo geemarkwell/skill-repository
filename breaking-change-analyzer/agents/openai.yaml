@@ -1,0 +1,4 @@
+interface:
+  display_name: "Breaking Change Analyzer"
+  short_description: "Review specs for compatibility risk"
+  default_prompt: "Use $breaking-change-analyzer to review this PRD or spec for breaking changes, compatibility risks, and rollout hazards."
