@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD Generator"
+  short_description: "Draft implementation-ready PRDs"
+  default_prompt: "Use $prd-generator to draft an implementation-ready PRD for the feature I describe."
