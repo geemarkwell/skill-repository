@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debug Auditor"
+  short_description: "Read-only runtime error diagnosis"
+  default_prompt: "Use $debug-auditor to diagnose this error without modifying any files."
