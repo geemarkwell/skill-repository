@@ -6,15 +6,24 @@ This is the authoritative checklist used during audits. Each item must be evalua
 - ⚠️ **Partial** — Partially implemented or cannot be fully verified from code alone
 - 🔲 **N/A** — Not applicable to this codebase
 
+### Verification Rule: Trace the Write Path
+
+For any item related to encryption, PHI storage, or data handling, you MUST trace the
+full live write path (controller → service → repository → model) before judging pass/fail.
+**Do NOT fail items based on model definitions, DTO types, schemas, or interfaces alone.**
+Encryption and masking are implemented in the service layer — a `String` column or `str`
+field tells you nothing about whether ciphertext or plaintext is stored. See the
+"Write-Path Tracing" section in SKILL.md for full details and examples.
+
 ---
 
 ## 1. Encryption (5 items)
 
-- [ ] 1.1 — Data at rest is encrypted using AES-256 (or equivalent) for all storage containing PHI (databases, file systems, backups).
+- [ ] 1.1 — Data at rest is encrypted using AES-256 (or equivalent) for all storage containing PHI (databases, file systems, backups). *(Verify via service-layer write path, not model/schema types.)*
 - [ ] 1.2 — Data in transit is protected with TLS 1.2 or higher on all connections transmitting PHI.
-- [ ] 1.3 — Database fields containing PHI are encrypted at the column/field level, not just at the disk level.
+- [ ] 1.3 — Database fields containing PHI are encrypted at the column/field level, not just at the disk level. *(A String/Text column type is NOT evidence of plaintext. Trace the service write path to see if ciphertext is stored.)*
 - [ ] 1.4 — Encryption keys are stored securely (e.g., HSM, KMS) and rotated on a defined schedule.
-- [ ] 1.5 — End-to-end encryption is used where applicable (e.g., messaging, file transfers).
+- [ ] 1.5 — End-to-end encryption is used where applicable (e.g., messaging, file transfers). *(Check the service layer for encrypt-before-persist and decrypt-after-read patterns.)*
 
 ## 2. Access Controls (6 items)
 
@@ -36,11 +45,11 @@ This is the authoritative checklist used during audits. Each item must be evalua
 
 ## 4. PHI Data Handling (6 items)
 
-- [ ] 4.1 — PHI is never stored in plaintext in caches, cookies, local storage, temp files, or session storage.
+- [ ] 4.1 — PHI is never stored in plaintext in caches, cookies, local storage, temp files, or session storage. *(Trace the service write path to confirm what is actually persisted. A plain type declaration is not evidence of plaintext storage.)*
 - [ ] 4.2 — PHI is never included in URLs, query strings, or browser history.
 - [ ] 4.3 — PHI is never logged in application logs, error messages, stack traces, or debugging output.
 - [ ] 4.4 — PHI is never committed to source code, config files, or version control repositories.
-- [ ] 4.5 — De-identification or tokenization is used wherever full PHI is not required.
+- [ ] 4.5 — De-identification or tokenization is used wherever full PHI is not required. *(Check services for tokenization/masking logic — it won't appear in models or DTOs.)*
 - [ ] 4.6 — PHI data is purged or anonymized when no longer needed for its original purpose.
 
 ## 5. API & Network Security (6 items)
