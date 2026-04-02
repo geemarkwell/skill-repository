@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Efficiency Auditor"
+  short_description: "Audit Python/FastAPI performance"
+  default_prompt: "Use $code-efficiency-auditor to audit this Python/FastAPI codebase for performance, scalability, and code quality risks."
