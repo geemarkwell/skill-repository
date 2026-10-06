@@ -1,5 +1,15 @@
 # skill-repository
 
+## Prompting
+
+[`Prompting`](Prompting/SKILL.md) provides prompt standards, templates, and rendering tools. Imported unchanged from [danielmiessler/lifeos](https://github.com/danielmiessler/lifeos/tree/5e2f2e8c0abde612da0e99c16c0d07d4ec21b88c/LifeOS/install/skills/Prompting), commit `5e2f2e8c0abde612da0e99c16c0d07d4ec21b88c`, with its MIT license. Upstream instructions retain Claude/LifeOS-specific paths and integrations.
+
+Install globally for Codex:
+
+```sh
+npx skills add https://github.com/geemarkwell/skill-repository --skill Prompting --agent codex --global --yes
+```
+
 ## Clean Code
 
 [`clean-code`](clean-code/SKILL.md) provides principles for writing, reviewing, and refactoring code. Imported unchanged from [sickn33/agentic-awesome-skills](https://github.com/sickn33/agentic-awesome-skills/tree/1e53ce294b6aa36c6d18d5a998cf8fda9db7723d/skills/clean-code), commit `1e53ce294b6aa36c6d18d5a998cf8fda9db7723d`. Upstream credits [ClawForge](https://github.com/jackjin1997/ClawForge). Upstream license notices are included in the skill folder.
